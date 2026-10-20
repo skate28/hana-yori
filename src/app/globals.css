@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/*
+  Fallbacks match src/content/site.ts palette. Live values are set on <html> from that file.
+  Dark design: sumi ink page, rice-paper text, vermilion buttons, hibachi ember accents,
+  sakura soft accents, nori green-black bands.
+*/
+:root {
+  --hy-ink: #0c0b0d;
+  --hy-brand: #d8452b;
+  --hy-brand-deep: #9e2a17;
+  --hy-accent: #f0a24a;
+  --hy-salmon: #f2b8c0;
+  --hy-nori: #13201c;
+  --hy-rice: #f4ece0;
+  --hy-paper: #ffffff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--hy-ink);
+  --color-brand: var(--hy-brand);
+  --color-brand-deep: var(--hy-brand-deep);
+  --color-accent: var(--hy-accent);
+  --color-ember: var(--hy-accent);
+  --color-salmon: var(--hy-salmon);
+  --color-sakura: var(--hy-salmon);
+  --color-nori: var(--hy-nori);
+  --color-rice: var(--hy-rice);
+  --color-paper: var(--hy-paper);
+  --color-surface: color-mix(in oklab, var(--hy-ink) 88%, var(--hy-rice));
+  --color-surface-2: color-mix(in oklab, var(--hy-ink) 80%, var(--hy-rice));
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Hiragino Mincho ProN", Georgia, serif;
+  --font-serif: var(--font-display-face), Georgia, serif;
+  --animate-ember: ember 5s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+}
+
+@keyframes ember {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  70% {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--hy-ink);
+}
+
+body {
+  background-color: var(--hy-ink);
+  color: var(--hy-rice);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--hy-brand);
+  color: var(--hy-paper);
+}
+
+.grain::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-ember-gradient {
+  background: linear-gradient(100deg, var(--hy-accent) 0%, var(--hy-brand) 55%, var(--hy-salmon) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+}
+
+.mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.mask-fade-t {
+  mask-image: linear-gradient(to top, black 0%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
