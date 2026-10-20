@@ -78,11 +78,13 @@ export function MenuTabs({ categories }: { categories: MenuCategory[] }) {
                       New
                     </span>
                   )}
-                  <span aria-hidden className="mx-1 hidden flex-1 border-b border-dotted border-rice/15 sm:block" />
                   {typeof item.price === "number" && Number.isFinite(item.price) && (
-                    <span className="ml-auto font-display text-xl font-semibold text-accent sm:ml-0">
-                      {formatPrice(item.price, item.priceFrom)}
-                    </span>
+                    <>
+                      <span aria-hidden className="mx-1 hidden flex-1 translate-y-[-0.3em] border-b border-dotted border-rice/20 sm:block" />
+                      <span className="ml-auto shrink-0 font-display text-xl font-semibold text-accent sm:ml-0">
+                        {formatPrice(item.price, item.priceFrom)}
+                      </span>
+                    </>
                   )}
                 </div>
                 {(item.description?.trim() || item.pieces) && (

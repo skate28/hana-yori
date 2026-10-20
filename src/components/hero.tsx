@@ -30,11 +30,26 @@ export function Hero() {
         aria-hidden
         className="absolute -top-40 -right-40 -z-10 size-[36rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--hy-salmon)_22%,transparent),transparent)] blur-2xl"
       />
-      <Seigaiha className="-z-10 text-rice/[0.07] mask-fade-t" />
+      {photo && (
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <Image
+            src={photo.src}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="scale-110 object-cover opacity-45 blur-[2px] saturate-[1.1]"
+          />
+          {/* Dark overlay keeps the type legible over any photo */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/70" />
+        </div>
+      )}
+      <Seigaiha className="-z-10 text-rice/[0.07] mask-fade-t" fill={photo ? "transparent" : "var(--hy-ink)"} />
       <SakuraPetals />
 
-      <div className={cn(container, "grid items-center gap-12", photo && "lg:grid-cols-[1.2fr_0.8fr]")}>
-        <div className={cn(!photo && "mx-auto max-w-4xl text-center")}>
+      <div className={cn(container, "grid grid-cols-1 items-center gap-12", photo && "lg:grid-cols-[1.2fr_0.8fr]")}>
+        <div className={cn("min-w-0", !photo && "mx-auto max-w-4xl text-center")}>
           <ShopStatusPill />
           <HeroTitle name={site.name} centered={!photo} />
           {site.tagline.trim() && (
@@ -84,7 +99,7 @@ export function Hero() {
         </div>
 
         {photo && (
-          <div className="relative mx-auto w-full max-w-md">
+          <div className="relative mx-auto hidden w-full max-w-sm rotate-[1.5deg] lg:block">
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/40 via-brand/30 to-sakura/30 blur-xl" aria-hidden />
             <Image
               src={photo.src}
@@ -92,7 +107,7 @@ export function Hero() {
               {...photoDimensions(photo)}
               priority
               sizes="(min-width: 1024px) 28rem, 90vw"
-              className="relative h-auto w-full rounded-[1.75rem] object-cover ring-1 ring-rice/15"
+              className="relative aspect-[3/4] h-auto w-full rounded-[1.75rem] object-cover ring-1 ring-rice/15"
             />
           </div>
         )}

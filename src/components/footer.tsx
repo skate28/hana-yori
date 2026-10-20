@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SakuraMon } from "@/components/logo";
+import { Wordmark } from "@/components/logo";
 import { Seigaiha } from "@/components/seigaiha";
 import { focusRing } from "@/components/styles";
 import { site } from "@/content/site";
@@ -25,12 +25,12 @@ export function Footer() {
       <Seigaiha className="text-rice/[0.05] mask-fade-t" />
       <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <div className="flex items-center gap-3">
-            <SakuraMon className="size-12 text-brand" />
-            <p className="font-display text-4xl font-semibold text-rice">{site.name}</p>
-          </div>
+          <p>
+            <Wordmark name={site.name} className="text-4xl" />
+          </p>
           {site.tagline.trim() && <p className="mt-4 max-w-sm font-display text-lg italic text-rice/60">{site.tagline}</p>}
           <p className="mt-6 text-rice/80">{site.address.full}</p>
+          {site.locationHint.trim() && <p className="mt-1 text-sm text-rice/50">{site.locationHint}</p>}
           {phoneHref && (
             <a href={phoneHref} className={cn("mt-2 inline-block rounded-full text-lg font-semibold text-accent", focusRing)}>
               {site.phone.display}

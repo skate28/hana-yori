@@ -1,16 +1,29 @@
 /**
  * Content shapes for Hana Yori.
- * Copied unchanged (field names and all) from the Madame Brioche build
- * (skate28/madame-brioche src/content/types.ts), which extends the Sushi & Sub shape.
- * Leads' handoff types.reference.ts is a SUPERSET of these, so it can replace this file
- * as long as every field below keeps its name and type. Components should tolerate empty fields.
+ * Copied UNCHANGED (shape-wise) from the Madame Brioche build
+ * (madamebrioche/handoff/types.reference.ts), which extended the Sushi & Sub types.
+ * Hana Yori needs no new fields, so this file is an exact superset of (identical to) the
+ * Madame Brioche shapes and both site.ts files type-check against it.
+ * All editable values live in `site.ts`. Components should tolerate empty fields.
  *
- * Hana Yori mapping notes (no new fields were added):
- *  - `customOrders` renders as the hibachi party / group reservation request section.
- *  - `preorder` renders as the text pre-order section.
- *  - `about.paragraphs[0]` is the lead line; any further paragraphs render as experience cards
- *    (sushi bar, hibachi grill, ...). The card title is the text before the first ":".
- *  - Palette roles for the dark design are documented on `Palette` below.
+ * Hana Yori usage notes:
+ *  - MenuItem `price` is left unset for sushi items whose current price could not be confirmed
+ *    (render the item without a price, or "Ask for price"). Never invent one.
+ *  - MenuItem `pieces` is used for sashimi (3 pc) where the menu prints it.
+ *  - `customOrders` is used for the group-dinner / hibachi-party / large-takeout intake section.
+ *  - `preorder` is used for the "text your takeout order" pitch (the shop takes phone orders only today).
+ *  - Palette keys keep the Sushi & Sub names (ink / brand / accent / salmon / nori / rice / paper).
+ *
+ * Madame Brioche extension notes (kept for reference):
+ *  1. PhotoCredit adds "toast-listing" and "unation-listing".
+ *  2. MenuItem adds optional `priceFrom` and `isNew`.
+ *  3. SiteContent adds optional `customOrders`.
+ *
+ * Original Sushi & Sub change notes (kept for reference):
+ *  - PhotoCategory adds "food"; Photo gains a required `credit` key (no source URLs in site.ts).
+ *  - MenuItem gains optional `pieces` and `number`.
+ *  - New: `orderingLinks`, `seo`, `footerCredit`, `locationHint`, `mapUrl`, `priceRange`, `paymentNote`.
+ *  - `rating` gains `source`. `preorder` kept for the text pre-order pitch.
  */
 
 export type PhoneNumber = {
@@ -123,12 +136,10 @@ export type OrderingLink = {
 };
 
 /**
- * Key names kept from Sushi & Sub for drop-in reuse. Hana Yori (dark design) roles:
- * ink = sumi ink page background and dark surfaces, rice = rice-paper text on ink,
- * brand = vermilion buttons, brandDeep = deep vermilion hover/gradients,
- * accent = hibachi ember gold (prices, highlights), salmon = sakura pink (soft accents),
- * nori = deep green-black secondary bands, paper = brightest highlight (white).
- * Per-key comments below are the original bakery wording.
+ * Key names kept from Sushi & Sub for drop-in reuse. Hana Yori roles:
+ * ink = granite charcoal text, brand = logo red, accent = warm wood,
+ * salmon = salmon orange (prices/badges), nori = deep nori green (secondary bands), rice = rice-paper cream page.
+ * (Madame Brioche used: espresso, terracotta, counter sage, pastry gold, deep sage, cream.)
  */
 export type Palette = {
   /** Espresso. Primary text, header/footer. */

@@ -29,6 +29,7 @@ export function primaryNav(): NavLink[] {
       label: "Reviews",
       show: Boolean(site.rating) || site.testimonials.some((t) => t.quote.trim() && safeHref(t.sourceUrl)),
     },
+    { href: "/#faq", label: "FAQ", show: site.faq.some((f) => f.question.trim() && f.answer.trim()) },
     { href: "/#visit", label: "Visit", show: true },
   ]
     .filter((link) => link.show)

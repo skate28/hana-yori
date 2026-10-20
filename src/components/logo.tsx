@@ -1,20 +1,24 @@
 import { cn } from "@/lib/cn";
 
-/** Sakura mon. A drawn mark (not a photo or a logo file) used until a real logo is approved. */
-export function SakuraMon({ className }: { className?: string }) {
-  const petals = [0, 72, 144, 216, 288];
+/**
+ * Typographic wordmark: the restaurant has no logo file yet. The name comes from site.ts;
+ * the last word gets the ember gradient. A small diamond is the only decorative glyph.
+ */
+export function Wordmark({ name, className }: { name: string; className?: string }) {
+  const words = name.trim().split(/\s+/);
+  const last = words.length > 1 ? words.pop() : null;
   return (
-    <svg viewBox="0 0 100 100" aria-hidden className={cn("size-10", className)}>
-      <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.9" />
-      {petals.map((deg) => (
-        <path
-          key={deg}
-          transform={`rotate(${deg} 50 50)`}
-          d="M50 50 C 38 38, 36 20, 46 13 L 50 18 L 54 13 C 64 20, 62 38, 50 50 Z"
-          fill="currentColor"
-        />
-      ))}
-      <circle cx="50" cy="50" r="5" fill="var(--hy-ink)" />
-    </svg>
+    <span className={cn("inline-flex items-center gap-2.5 font-display font-semibold tracking-wide text-rice", className)}>
+      <span aria-hidden className="size-2 rotate-45 bg-brand shadow-[0_0_12px] shadow-brand" />
+      <span>
+        {words.join(" ")}
+        {last && (
+          <>
+            {" "}
+            <span className="text-ember-gradient">{last}</span>
+          </>
+        )}
+      </span>
+    </span>
   );
 }

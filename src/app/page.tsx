@@ -1,3 +1,4 @@
+import { Faq } from "@/components/faq";
 import { Experience } from "@/components/experience";
 import { Gallery } from "@/components/gallery";
 import { Hero } from "@/components/hero";
@@ -23,6 +24,7 @@ export default function HomePage() {
       <OrderLinks />
       <Gallery />
       <Reviews />
+      <Faq />
       <Visit />
     </main>
   );

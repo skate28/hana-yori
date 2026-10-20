@@ -1,16 +1,18 @@
-import { MessageSquareText, Navigation, Phone } from "lucide-react";
+import { MessageSquareText, Navigation, Phone, UtensilsCrossed } from "lucide-react";
 
 import { focusRing } from "@/components/styles";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { telHref } from "@/lib/contact";
 import { directionsHref } from "@/lib/maps";
-import { preorderSmsHref } from "@/lib/ordering";
+import { visibleCategories } from "@/lib/menu";
+import { liveSmsHref } from "@/lib/ordering";
 
-/** Sticky bottom action bar on phones: call (primary), text, directions. */
+/** Sticky bottom action bar on phones: call (primary), menu or text (only when texting is live), directions. */
 export function MobileBar() {
   const call = telHref(site.phone);
-  const sms = preorderSmsHref();
+  const sms = liveSmsHref(site.preorder.textMessage);
+  const hasMenu = visibleCategories(site.menu).length > 0;
   const directions = directionsHref();
   if (!call && !sms && !directions) return null;
   const item = cn(
@@ -29,10 +31,16 @@ export function MobileBar() {
           <Phone className="size-5" aria-hidden /> Call now
         </a>
       )}
-      {sms && (
+      {sms ? (
         <a href={sms} className={item}>
           <MessageSquareText className="size-5 text-sakura" aria-hidden /> Text
         </a>
+      ) : (
+        hasMenu && (
+          <a href="#menu" className={item}>
+            <UtensilsCrossed className="size-5 text-sakura" aria-hidden /> Menu
+          </a>
+        )
       )}
       {directions && (
         <a href={directions} target="_blank" rel="noopener noreferrer" className={item}>

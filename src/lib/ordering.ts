@@ -62,3 +62,20 @@ export function preorderSmsHref(
   if (listed && message === content.preorder.textMessage) return listed.href;
   return safeHref(smsHref(textTarget(content), message));
 }
+
+/**
+ * Texting is a switch, not a promise. It is ON only when content sets a dedicated `textNumber`
+ * or lists an explicit `sms` ordering link. While it is off, text ordering and party requests
+ * render as "coming soon" previews and no `sms:` link is shown anywhere.
+ */
+export function textingEnabled(content: SiteContent = site): boolean {
+  return Boolean(content.textNumber?.e164?.trim() || content.textNumber?.tel?.trim()) || linksOfKind("sms", content).length > 0;
+}
+
+/** `sms:` href only when texting is switched on. */
+export function liveSmsHref(message: string, content: SiteContent = site): string | null {
+  if (!textingEnabled(content)) return null;
+  const listed = linksOfKind("sms", content)[0];
+  if (listed && !content.textNumber) return listed.href;
+  return safeHref(smsHref(textTarget(content), message));
+}

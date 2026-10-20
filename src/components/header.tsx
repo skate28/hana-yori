@@ -5,7 +5,7 @@ import { Menu as MenuIcon, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { SakuraMon } from "@/components/logo";
+import { Wordmark } from "@/components/logo";
 import { buttonPrimary, focusRing } from "@/components/styles";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
@@ -35,8 +35,7 @@ export function Header({ links }: { links: NavLink[] }) {
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8 md:h-20">
         <Link href="/#top" className={cn("flex items-center gap-3 rounded-full", focusRing)} onClick={() => setOpen(false)}>
-          <SakuraMon className="size-9 text-brand" />
-          <span className="font-display text-xl font-semibold tracking-wide text-rice">{site.name}</span>
+          <Wordmark name={site.name} className="text-xl md:text-2xl" />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">

@@ -1,10 +1,12 @@
 import { Fish, Flame, Sparkles, Users } from "lucide-react";
+import Image from "next/image";
 
 import { Reveal } from "@/components/reveal";
 import { Seigaiha } from "@/components/seigaiha";
 import { container, eyebrow, sectionTitle } from "@/components/styles";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
+import { photosOfCategory } from "@/lib/photos";
 
 const ICONS = [Fish, Flame, Sparkles, Users];
 const TONES = [
@@ -25,6 +27,7 @@ export function Experience() {
   if (!site.about.heading.trim() && paragraphs.length === 0) return null;
   const [lead, ...rest] = paragraphs;
   const cards = rest.map(splitCard);
+  const interiors = photosOfCategory("interior").slice(0, 3);
 
   return (
     <section id="experience" className="relative overflow-hidden py-24 md:py-32">
@@ -59,6 +62,42 @@ export function Experience() {
                 </Reveal>
               );
             })}
+          </div>
+        )}
+
+        {interiors.length > 0 && (
+          <div
+            className={cn(
+              "mt-6 grid gap-5",
+              interiors.length === 1 && "grid-cols-1",
+              interiors.length === 2 && "md:grid-cols-2",
+              interiors.length >= 3 && "md:grid-cols-[1.4fr_1fr] md:grid-rows-2",
+            )}
+          >
+            {interiors.map((photo, i) => (
+              <Reveal
+                key={photo.src}
+                delay={i * 0.1}
+                className={cn(interiors.length >= 3 && i === 0 && "md:row-span-2")}
+              >
+                <figure className="group relative h-full overflow-hidden rounded-3xl ring-1 ring-rice/10">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                  />
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+                  <div
+                    aria-hidden
+                    className={cn(
+                      interiors.length >= 3 && i === 0 ? "aspect-[4/3] md:aspect-auto md:h-full md:min-h-[30rem]" : "aspect-[4/3]",
+                    )}
+                  />
+                </figure>
+              </Reveal>
+            ))}
           </div>
         )}
       </div>

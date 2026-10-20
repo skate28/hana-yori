@@ -22,9 +22,9 @@ hours, reviews, or photos in components.
 - `textTarget(content)` — number used by every `sms:` link (falls back to the shop line while `textNumber` is null)
 - `callTarget(content, isClosed)` — number used by call buttons
 
-Types live in `src/content/types.ts`. They are the Madame Brioche types **unchanged** (same field
-names), so Leads' `types.reference.ts` — a superset — can replace that file. If it adds fields, the
-existing components keep compiling; new fields need new code.
+Types live in `src/content/types.ts`, adopted verbatim from Leads' `types.reference.ts` (same shape as
+the Madame Brioche types). If Leads adds fields, the existing components keep compiling; new fields
+need new code.
 
 | `site` field | Renders as |
 | --- | --- |
@@ -32,15 +32,30 @@ existing components keep compiling; new fields need new code.
 | `hours` (`byDay`, `summary`, `timezone`) | Open/closed pill, hours table (today highlighted), JSON-LD |
 | `about.heading` + `about.paragraphs` | Experience section. Paragraph 0 is the lead; each later paragraph is a card, title = text before the first `:` |
 | `menu[]` (categories → items with optional `price`, `description`, `pieces`, `number`, `isNew`, `priceFrom`) | Tabbed menu + marquee ribbon. Prices render only when set |
-| `customOrders` | Hibachi party / reservation request (text + call). Absent = hidden |
-| `preorder` | Text pre-order section. Rewire by setting `textNumber` (or adding an `sms` ordering link) |
+| `customOrders` | Parties & groups panel. Tap-to-call is the live action. Absent = hidden |
+| `preorder` | Takeout section. Tap-to-call is the live action; text ordering shows as "coming soon" |
+| `faq[]` | FAQ accordion + FAQPage JSON-LD. Empty = hidden |
 | `orderingLinks[]` (`online` / `delivery`) | "Order online" section. **Empty = hidden.** Only links the restaurant really uses |
-| `photos[]`, `heroImage` | Hero photo column + gallery. **Empty = hidden** (the design works with zero photos) |
+| `photos[]`, `heroImage` | Hero (blurred dark backdrop + framed photo on desktop), interior collage in Experience (`interior` category), a tall food shot in the Parties panel, and the gallery with lightbox (skips `logo` and `menu-board`). **Empty = hidden** |
 | `rating`, `testimonials[]` | Reviews section. Testimonials need a `sourceUrl` or they are skipped |
 | `socials[]` | Footer links |
 | `palette` | CSS variables on `<html>` (dark design: `ink` = page, `rice` = text, `brand` = vermilion, `accent` = ember, `salmon` = sakura, `nori` = secondary bands) |
 | `seo`, `description` | `<title>`, meta description, Open Graph, Restaurant JSON-LD |
 | `footerCredit` | Last footer line, always linked to https://nicklopacki.com |
+
+### Texting switch
+
+Texting is OFF by default. It turns on only when `site.textNumber` is set or `orderingLinks` contains a
+`kind: "sms"` entry (`textingEnabled()` in `src/lib/ordering.ts`). While off, no `sms:` link is rendered
+anywhere; text ordering and party text requests show as "coming soon" previews, and the mobile bar
+shows Call / Menu / Directions. `phone` ordering links are not repeated (tap-to-call is everywhere).
+Only `online` / `delivery` links render in the "Order online" section, which is hidden while empty.
+
+### Code-owned copy rules
+
+- Never promise a tableside hibachi show. Hibachi is cooked on the open grill and brought to the table.
+- Never claim the restaurant takes orders or party requests by text until the switch above is on.
+- No logo file exists: the header/footer use a typographic wordmark built from `site.name`.
 
 ### Content rules
 

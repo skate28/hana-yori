@@ -48,14 +48,14 @@ export function Reviews() {
         )}
 
         {quotes.length > 0 && (
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
+          <div className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3">
             {quotes.map((q, i) => (
-              <Reveal key={i} delay={i * 0.08}>
-                <figure className="flex h-full flex-col rounded-3xl bg-ink/60 p-7 ring-1 ring-rice/10">
+              <Reveal key={i} delay={(i % 3) * 0.08} className="mb-5 break-inside-avoid">
+                <figure className="flex flex-col rounded-3xl bg-ink/60 p-7 ring-1 ring-rice/10 backdrop-blur-sm transition-colors hover:ring-accent/40">
                   <Quote className="size-7 text-brand" aria-hidden />
-                  <blockquote className="mt-4 flex-1 font-display text-xl leading-snug text-rice/90">“{q.quote}”</blockquote>
+                  <blockquote className="mt-4 font-display text-lg leading-snug text-rice/90 md:text-xl">“{q.quote}”</blockquote>
                   <figcaption className="mt-6 flex items-center justify-between text-sm text-rice/60">
-                    <span>{q.author?.trim()}</span>
+                    <span className="font-semibold text-rice/80">{q.author?.trim()}</span>
                     <a href={q.href} target="_blank" rel="noopener noreferrer" className={cn("inline-flex items-center gap-1 rounded-full underline underline-offset-4", focusRing)}>
                       {q.sourceLabel} <ArrowUpRight className="size-3.5" aria-hidden />
                     </a>
