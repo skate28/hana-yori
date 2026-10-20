@@ -28,12 +28,9 @@ export function publicPhotos(photos: Photo[] = site.photos): Photo[] {
   return photos.filter(isPublicPhoto);
 }
 
-/**
- * Gallery skips the logo (header mark) and menu-board shots (reference only; printed prices
- * on them can be older than the menu in site.ts).
- */
+/** Gallery skips the logo tile. It is the header mark, not a scene. */
 export function galleryPhotos(photos: Photo[] = site.photos): Photo[] {
-  return publicPhotos(photos).filter((photo) => photo.category !== "logo" && photo.category !== "menu-board");
+  return publicPhotos(photos).filter((photo) => photo.category !== "logo");
 }
 
 export function photosOfCategory(category: Photo["category"], photos: Photo[] = site.photos): Photo[] {

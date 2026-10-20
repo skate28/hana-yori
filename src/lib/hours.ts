@@ -79,7 +79,7 @@ function windowLabel(day: DayHours | null): string | null {
   return formatWindow(day.openTime, day.closeTime);
 }
 
-function zonedParts(date: Date, timeZone: string) {
+export function zonedParts(date: Date, timeZone: string) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone,
     weekday: "short",
@@ -168,4 +168,34 @@ export function scheduleRows(hours: Hours): ScheduleRow[] {
           : formatWindow(...(group.signature.split("|") as [string, string]));
       return { label, value };
     });
+}
+
+const ORDER_FROM_SUN: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+/**
+ * Next opening as a short label, e.g. "Opens 4:30 PM", "Opens tomorrow 4:30 PM", "Opens Wed 4:30 PM".
+ * Null when the schedule is too incomplete to say.
+ */
+export function nextOpeningLabel(now = new Date(), content: SiteContent = site): string | null {
+  const hours = content.hours;
+  try {
+    const zoned = zonedParts(now, hours.timezone.trim() || "America/New_York");
+    if (!zoned.weekday) return null;
+    const start = ORDER_FROM_SUN.indexOf(zoned.weekday);
+    for (let offset = 0; offset < 8; offset++) {
+      const weekday = ORDER_FROM_SUN[(start + offset) % 7];
+      const day = dayHours(hours, weekday);
+      if (!day || day.closed || !day.openTime) continue;
+      const open = parseMinutes(day.openTime);
+      if (open == null) continue;
+      if (offset === 0 && zoned.minutes >= open) continue;
+      const time = formatClock(day.openTime);
+      if (offset === 0) return `Opens ${time}`;
+      if (offset === 1) return `Opens tomorrow ${time}`;
+      return `Opens ${DAY_LABEL[weekday]} ${time}`;
+    }
+  } catch {
+    return null;
+  }
+  return null;
 }

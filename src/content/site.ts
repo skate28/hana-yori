@@ -521,7 +521,6 @@ export const site: SiteContent = {
     { src: "/images/sushi-bar-counter.jpg", alt: "Sushi bar counter with wooden chairs, glass fish case and Sapporo poster", category: "interior", credit: "google-maps-ugc", width: 1088, height: 1200 },
     { src: "/images/dining-room-wood-tile-walls.jpg", alt: "Dining room with wood columns and walls covered in wooden tiles decorated by guests", category: "interior", credit: "google-maps-ugc", width: 1600, height: 1200 },
     { src: "/images/dining-room-grill-line.jpg", alt: "Evening dining room facing the open hibachi grill and sushi bar", category: "interior", credit: "google-maps-ugc", width: 1600, height: 1200 },
-    { src: "/images/menu-hibachi-entrees.jpg", alt: "The Hana Yori hibachi menu with starters, combination entrees and tempura", category: "menu-board", credit: "google-maps-ugc", width: 1200, height: 1600 },
   ],
   heroImage: "/images/hibachi-steak-shrimp-fried-rice.jpg",
 
@@ -554,7 +553,7 @@ export const site: SiteContent = {
   preorder: {
     heading: "Takeout",
     intro:
-      "Call your order in and it will be hot and ready when you arrive. Planning ahead? Text us your order and pickup time.",
+      "Call your order in and it will be hot and ready when you arrive. Planning ahead? Call us with your order and pickup time.",
     textButtonLabel: "Text us your order",
     textMessage: "Hi Hana Yori, I'd like to place a takeout order for pickup at ___:",
     // TODO(Leads): confirm the restaurant accepts texted orders and how far ahead (same-day only?).
@@ -567,7 +566,7 @@ export const site: SiteContent = {
   customOrders: {
     heading: "Parties & large orders",
     intro:
-      "Birthday dinner, team night out or a big takeout order for the game? Tell us the date, time and how many people, and we'll get back to you to confirm.",
+      "Birthday dinner, team night out or a big takeout order for the game? Call us with the date, time and how many people, and we'll set it up.",
     examples: ["Birthday dinners and group tables", "Large hibachi and sushi takeout orders"],
     leadTimeNote: "",
     textButtonLabel: "Text us about a party",

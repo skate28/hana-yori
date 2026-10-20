@@ -36,7 +36,7 @@ need new code.
 | `preorder` | Takeout section. Tap-to-call is the live action; text ordering shows as "coming soon" |
 | `faq[]` | FAQ accordion + FAQPage JSON-LD. Empty = hidden |
 | `orderingLinks[]` (`online` / `delivery`) | "Order online" section. **Empty = hidden.** Only links the restaurant really uses |
-| `photos[]`, `heroImage` | Hero (blurred dark backdrop + framed photo on desktop), interior collage in Experience (`interior` category), a tall food shot in the Parties panel, and the gallery with lightbox (skips `logo` and `menu-board`). **Empty = hidden** |
+| `photos[]`, `heroImage` | Hero (blurred dark backdrop + framed photo on desktop), interior collage in Experience (`interior` category), a tall food shot in the Parties panel, and the gallery with lightbox (skips `logo`). **Empty = hidden** |
 | `rating`, `testimonials[]` | Reviews section. Testimonials need a `sourceUrl` or they are skipped |
 | `socials[]` | Footer links |
 | `palette` | CSS variables on `<html>` (dark design: `ink` = page, `rice` = text, `brand` = vermilion, `accent` = ember, `salmon` = sakura, `nori` = secondary bands) |
